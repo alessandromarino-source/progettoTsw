@@ -16,7 +16,7 @@ CREATE TABLE UTENTE (
     Nome VARCHAR(50) NOT NULL,
     Cognome VARCHAR(50) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
-    Password_Hash VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
     Indirizzo_Spedizione VARCHAR(255) NOT NULL,
     Telefono VARCHAR(20),
     Ruolo VARCHAR(20) DEFAULT 'cliente', -- 'cliente' o 'admin'
@@ -38,7 +38,7 @@ CREATE TABLE PRODOTTO (
     ID_Prodotto INT AUTO_INCREMENT,
     Nome VARCHAR(100) NOT NULL,
     Descrizione TEXT,
-    Prezzo_Al_Kg_O_Pezzo DECIMAL(10, 2) NOT NULL,
+    Prezzo_Unitario DECIMAL(10, 2) NOT NULL,
     Quantita_Disponibile DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Categoria VARCHAR(50) NOT NULL,
     Certificazioni VARCHAR(100),

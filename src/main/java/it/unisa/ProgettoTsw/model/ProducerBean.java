@@ -9,14 +9,16 @@ public class ProducerBean implements Serializable {
     private int idProduttore;
     private String nome;
     private String descrizione;
-    private String sede;
+    private String partitaIva;
+    private String sedeLegale;
 
     // Costruttore
     public ProducerBean() {
         this.idProduttore = 0;
         this.nome = "";
         this.descrizione = "";
-        this.sede = "";
+        this.partitaIva = "";
+        this.sedeLegale = "";
     }
 
     // Getter e Setter
@@ -29,11 +31,15 @@ public class ProducerBean implements Serializable {
     public String getDescrizione() { return descrizione; }
     public void setDescrizione(String descrizione) { this.descrizione = descrizione; }
 
-    public String getSede() { return sede; }
-    public void setSede(String sede) { this.sede = sede; }
+    public String getPartitaIva() { return partitaIva; }
+    public void setPartitaIva(String partitaIva) { this.partitaIva = partitaIva; }
+
+    public String getSedeLegale() { return sedeLegale; }
+    public void setSedeLegale(String sedeLegale) { this.sedeLegale = sedeLegale; }
 
     @Override
     public String toString() {
-        return "ProducerBean [idProduttore=" + idProduttore + ", nome=" + nome + ", sede=" + sede + "]";
+        return "ProducerBean [idProduttore=" + idProduttore + ", nome=" + nome + ", descrizione=" + descrizione
+                + ", partitaIva=" + partitaIva + ", sedeLegale=" + sedeLegale + "]";
     }
 }
