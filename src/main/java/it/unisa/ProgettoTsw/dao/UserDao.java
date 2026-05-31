@@ -18,4 +18,6 @@ public interface UserDao {
     public List<UserBean> doRetrieveAll(String order) throws SQLException;
     
     public boolean doUpdate(UserBean user) throws SQLException;
+    
+    public UserBean doRetrieveByEmailAndPassword(String email, String password) throws SQLException;
 }

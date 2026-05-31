@@ -82,6 +82,34 @@ public class UserDaoImplements implements UserDao {
         }
         return bean;
     }
+    
+    @Override
+    public synchronized UserBean doRetrieveByEmailAndPassword(String email, String password) throws SQLException {
+        UserBean bean = null; //Inizializzo a null così se non lo trova l'accesso fallisce
+        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE Email = ? AND Password = ?";
+        
+        		 try (Connection connection = ds.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                // Usiamo if invece di while perché mi aspetto al massimo un utente poichè impedisco di registrare 2 utenti con la stessa email grazie a doRetrieveByEmail
+                if (rs.next()) { 
+                    bean = new UserBean();
+                    bean.setIdUtente(rs.getInt("ID_Utente"));
+                    bean.setNome(rs.getString("Nome"));
+                    bean.setCognome(rs.getString("Cognome"));
+                    bean.setEmail(rs.getString("Email"));
+                    bean.setIndirizzoSpedizione(rs.getString("Indirizzo_Spedizione"));
+                    bean.setTelefono(rs.getString("Telefono"));
+                    bean.setRuolo(rs.getString("Ruolo"));
+                }
+            }
+        }
+        return bean;
+    }
 
     @Override
     public synchronized boolean doDelete(int idUtente) throws SQLException {
