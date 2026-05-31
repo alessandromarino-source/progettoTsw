@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+
+/* Impostazioni di base del professore, espanse per il nuovo layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e9cd96; /* Colore di base della palette */
+    color: #2a3422; /* Testo verde scuro */
+}
+
+h2 {
+    text-align: center;
+}
+
+/* Stili dei link nello stile del prof, usando i tuoi colori */
+a:link {
+    color: #2a3422;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:visited {
+    color: #2a3422;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #c88e41; /* Arancione/Oro al passaggio del mouse */
+    font-weight: bold;
+}
+
+a:active {
+    color: #2a3422;
+    font-weight: bold;
+}
+
+/* Stili per form e tabelle (mantenuti dal codice originale del prof) */
+table {
+    width: 500px;
+}
+
+table, th, td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+/* ---- NUOVO LAYOUT HOME PAGE ---- */
+
+/* Menu Superiore */
+header {
+    display: flex; /* Permette di allineare logo a sinistra e menu a destra */
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #e9cd96;
+}
+
+.logo-container img {
+    height: 70px; /* Grandezza del logo */
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Distanza tra i pulsanti del menu */
+}
+
+.icon-container img {
+    height: 35px;
+    margin-left: 15px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Immagine a tutto schermo */
+.hero-image {
+    width: 100%;
+    height: 450px; /* Altezza dell'immagine centrale */
+    object-fit: cover; /* Evita che l'immagine si deformi */
+    display: block;
+    border-top: 3px solid #8b8b6f; /* Bordo color oliva */
+    border-bottom: 3px solid #8b8b6f;
+}
+
+/* Sezione Descrizione (Effetto Carino) */
+.about-section {
+    width: 70%;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #c39c83; /* Sfondo marroncino per far risaltare il testo */
+    color: #2a3422;
+    text-align: center;
+    border-radius: 12px; /* Angoli arrotondati */
+    box-shadow: 0px 8px 15px rgba(42, 52, 34, 0.4); /* Ombra morbida sotto il box */
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.about-section h2 {
+    color: #2a3422;
+    margin-bottom: 25px;
+}

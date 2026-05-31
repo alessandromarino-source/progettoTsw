@@ -3,36 +3,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Accesso - E-Commerce</title>
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css">
+    <title>Login</title>
 </head>
 <body>
 
-    <h1>Accedi al tuo Account</h1>
+    <h2>Accedi all'E-Commerce</h2>
 
     <%
-        // Se la Servlet rileva un errore, ricarica questa pagina inserendo un messaggio nella richiesta
-        String messaggioErrore = (String) request.getAttribute("errore");
-        if (messaggioErrore != null) {
+        String errore = (String) request.getAttribute("errorMessage");
+        String successo = (String) request.getAttribute("successMessage");
+        
+        if (errore != null) {
     %>
-        <div class="error-box">
-            <p><strong>Attenzione:</strong> <%= messaggioErrore %></p>
-        </div>
+        <p style="color: red;"><%= errore %></p>
+    <%
+        }
+        if (successo != null) {
+    %>
+        <p style="color: green; font-weight: bold;"><%= successo %></p>
     <%
         }
     %>
 
-    <%-- Il form impacchetta i datie li spedisce alla Servlet di autenticazione --%>
-    <form action="login" method="post">
+    <form action="<%= request.getContextPath() %>/user?action=login" method="POST">
+        Email: <input type="email" name="email" required><br><br>
+        Password: <input type="password" name="password" required><br><br>
         
-        <label for="email">Indirizzo Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <input type="submit" value="Accedi">
-        
+        <input type="submit" value="Effettua Login">
     </form>
+
+    <p>Nuovo utente? <a href="registrazione.jsp">Registrati qui</a></p>
 
 </body>
 </html>
