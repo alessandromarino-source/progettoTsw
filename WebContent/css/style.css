@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 
-/* Impostazioni di base del professore, espanse per il nuovo layout */
+/* Impostazioni di base del professore */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #e9cd96; /* Colore di base della palette */
+    background-color: #e9cd96; /* Colore di base beige della palette */
     color: #2a3422; /* Testo verde scuro */
 }
 
@@ -13,15 +13,10 @@ h2 {
     text-align: center;
 }
 
-/* Stili dei link nello stile del prof, usando i tuoi colori */
-a:link {
+/* Stili dei link nello stile del prof */
+a:link, a:visited, a:active {
     color: #2a3422;
     text-decoration: none;
-    font-weight: bold;
-}
-
-a:visited {
-    color: #2a3422;
     font-weight: bold;
 }
 
@@ -30,14 +25,10 @@ a:hover {
     font-weight: bold;
 }
 
-a:active {
-    color: #2a3422;
-    font-weight: bold;
-}
-
-/* Stili per form e tabelle (mantenuti dal codice originale del prof) */
+/* Stili per form e tabelle */
 table {
     width: 500px;
+    margin: 20px auto;
 }
 
 table, th, td {
@@ -54,54 +45,80 @@ label {
     font-weight: bold;
 }
 
-/* ---- NUOVO LAYOUT HOME PAGE ---- */
+/* ---- LAYOUT STRUTTURATO DELLA HOME PAGE ---- */
 
-/* Menu Superiore */
+/* 1. Menu Superiore (Header) */
 header {
-    display: flex; /* Permette di allineare logo a sinistra e menu a destra */
-    justify-content: space-between;
+    display: flex; 
+    align-items: center; /* Centra verticalmente gli elementi */
+    justify-content: space-between; /* Spinge il logo tutto a sinistra e i link tutti a destra */
+    padding: 10px 40px; 
+    background-color: #FFFFFF; /* Barra bianca */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+}
+
+/* Colore dei link dentro l'header */
+header a:link, header a:visited {
+    color: #2A2A2A; 
+}
+
+header a:hover {
+    color: #C65A39; 
+}
+
+/* 2. Contenitore e dimensione del Logo */
+.logo-container {
+    display: flex;
     align-items: center;
-    padding: 20px 50px;
-    background-color: #e9cd96;
 }
 
 .logo-container img {
-    height: 70px; /* Grandezza del logo */
+    height: 55px; 
+    width: auto;  
+    display: block;
+    border-radius: 50%; /* Smussa i bordi del logo visto che ha un contorno rotondo */
 }
 
+/* 3. Blocco Navigazione Principale (Voci di testo + Voci con icona) */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 30px; /* Distanza tra i pulsanti del menu */
+    gap: 35px; /* Crea uno spazio identico tra Home, Shop, Contatti, Carrello e Accedi */
 }
 
-.icon-container img {
-    height: 35px;
-    margin-left: 15px;
-    vertical-align: middle;
-    cursor: pointer;
+/* 4. Il trucco per affiancare perfettamente l'icona al testo "Accedi/Profilo/Carrello" */
+.icon-link {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Distanza tra l'immaginetta e la parola */
 }
 
-/* Immagine a tutto schermo */
+.icon-link img {
+    height: 24px; /* Rimpicciolisce le icone in modo che siano grandi come il testo */
+    width: auto;
+    display: block;
+}
+
+/* Immagine Banner Centrale (Se presente nel resto della pagina) */
 .hero-image {
     width: 100%;
-    height: 450px; /* Altezza dell'immagine centrale */
-    object-fit: cover; /* Evita che l'immagine si deformi */
+    height: 400px; 
+    object-fit: cover; 
     display: block;
-    border-top: 3px solid #8b8b6f; /* Bordo color oliva */
+    border-top: 3px solid #8b8b6f;
     border-bottom: 3px solid #8b8b6f;
 }
 
-/* Sezione Descrizione (Effetto Carino) */
+/* Sezione Descrizione Aziendale (Se presente nel resto della pagina) */
 .about-section {
     width: 70%;
     margin: 50px auto;
     padding: 40px;
-    background-color: #c39c83; /* Sfondo marroncino per far risaltare il testo */
+    background-color: #c39c83; 
     color: #2a3422;
     text-align: center;
-    border-radius: 12px; /* Angoli arrotondati */
-    box-shadow: 0px 8px 15px rgba(42, 52, 34, 0.4); /* Ombra morbida sotto il box */
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(42, 52, 34, 0.2);
     line-height: 1.6;
     font-size: 1.1em;
 }
@@ -109,4 +126,33 @@ header {
 .about-section h2 {
     color: #2a3422;
     margin-bottom: 25px;
+}
+
+/* 1. Assicurati che i link della navigazione facciano da "ancora" per la barra */
+.nav-links a {
+    position: relative; /* Fondamentale per posizionare la barra sotto di essi */
+    text-decoration: none;
+}
+
+/* 2. Creazione della barra (invisibile di default) */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px; /* Spessore della barra (puoi aumentarlo o diminuirlo) */
+    bottom: -6px; /* Distanza della barra dal testo */
+    left: 0;
+    background-color: #C65A39; /* Stesso colore del testo al passaggio del mouse */
+    
+    /* Gestione dell'animazione: parte da larghezza 0 */
+    transform: scaleX(0); 
+    transform-origin: bottom right; /* Fa partire l'animazione da un lato */
+    transition: transform 0.3s ease-out; /* Velocità e fluidità dell'animazione */
+    border-radius: 2px; /* Arrotonda leggermente gli angoli della barretta */
+}
+
+/* 3. Fa apparire la barra quando passi sopra col mouse */
+.nav-links a:hover::after {
+    transform: scaleX(1); /* Allarga la barra al 100% della larghezza del testo */
+    transform-origin: bottom left; /* Fa scivolare la barra verso sinistra quando esci col mouse */
 }
