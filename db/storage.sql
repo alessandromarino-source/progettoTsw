@@ -39,7 +39,7 @@ CREATE TABLE PRODOTTO (
     Nome VARCHAR(100) NOT NULL,
     Descrizione TEXT,
     Prezzo_Unitario DECIMAL(10, 2) NOT NULL,
-    Quantita_Disponibile DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    Quantita_Disponibile INT(10, 2) NOT NULL DEFAULT 0.00,
     Categoria VARCHAR(50) NOT NULL,
     Certificazioni VARCHAR(100),
     ID_Produttore INT NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE DETTAGLIO_ORDINE (
     ID_Dettaglio INT AUTO_INCREMENT,
     Numero_Ordine INT NOT NULL,
     ID_Prodotto INT NOT NULL,
-    Quantita_Acquistata DECIMAL(10, 2) NOT NULL,
+    Quantita_Acquistata INT(10, 2) NOT NULL,
     Prezzo_Vendita_Storico DECIMAL(10, 2) NOT NULL, -- Prezzo congelato al momento dell'acquisto
     PRIMARY KEY (ID_Dettaglio),
     UNIQUE KEY (Numero_Ordine, ID_Prodotto),
