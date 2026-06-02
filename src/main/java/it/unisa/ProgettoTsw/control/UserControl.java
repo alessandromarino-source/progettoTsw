@@ -93,9 +93,10 @@ public class UserControl extends HttpServlet {
         UserBean user = userDao.doRetrieveByEmailAndPassword(email, password);
 
         if (user != null) {
-            HttpSession session = request.getSession();
+        		HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            return "/WEB-INF/view/index.jsp"; // Login corretto: rotta protetta della Home
+            session.setAttribute("token", java.util.UUID.randomUUID().toString()); // <-- token in sessione
+            return "/WEB-INF/view/index.jsp";
         } else {
             request.setAttribute("errorMessage", "Email o Password errate. Riprova.");
             return "/WEB-INF/view/login.jsp"; // Login errato: torno al form protetto
