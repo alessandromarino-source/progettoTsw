@@ -240,7 +240,7 @@ header {
      * Quando avrete una foto, decommentate la riga qui sotto
      * e il gradiente diventerà un overlay sull'immagine.
      */
-    /* background: url('../images/hero-bg.jpg') center / cover no-repeat; */
+    /* background: url('../images/backGround-image.png') center / cover no-repeat; */
     background:
         linear-gradient(135deg,
             #2A3422 0%,

@@ -27,18 +27,31 @@
                 <span class="logo-club">CLUB</span>
             </a>
         </div>
-
-        <!-- Navigazione a destra -->
-        <nav class="nav-links">
-            <a href="<%= request.getContextPath() %>/user?action=home">Home</a>
-            <a href="<%= request.getContextPath() %>/product?action=shop">Shop</a>
-            <a href="#contatti">Contatti</a>
+            <!-- Home -->
+            <nav class="nav-links">
+            <a href="<%= request.getContextPath() %>/user?action=home" class="icon-link">
+            	<img src="<%=request.getContextPath()%>/images/home-image.png" alt="Home">
+            <span>Home</span>
+            </a>
+            
+            <!-- shop -->
+            <a href="<%= request.getContextPath() %>/product?action=shop" class="icon-link">
+            <img src="<%=request.getContextPath() %>/images/shop-image.png" alt="shop">
+            <span>Shop</span>
+            </a>
+            
+            <!-- contatti -->
+            <a href="#contatti" class="icon-link">
+            <img src="<%=request.getContextPath() %>/images/contatti-image.png" alt="contatti">
+            <span>Contatti</span>
+            </a>
 
             <!-- Carrello -->
             <a href="<%= request.getContextPath() %>/cart?action=view" class="icon-link">
                 <img src="<%= request.getContextPath() %>/images/shopping_cart.png" alt="Carrello">
                 <span>Carrello</span>
             </a>
+            
 
             <!-- Accedi / Profilo + Esci (in base allo stato di login) -->
             <%
@@ -60,7 +73,7 @@
             <%
                 }
             %>
-        </nav>
+            </nav>
 
         <!-- Hamburger per mobile -->
         <button class="hamburger" id="hamburgerBtn" aria-label="Apri menu">
@@ -72,7 +85,7 @@
 
     <!-- ==================== HERO SECTION ==================== -->
     <!--
-        Per aggiungere un'immagine di sfondo: mettete il file in /images/hero-bg.jpg
+        Per aggiungere un'immagine di sfondo: mettete il file in /images/backGround-image.png
         e decommentate la riga nel CSS (.hero { background-image: ... })
     -->
     <section class="hero">
@@ -155,7 +168,7 @@
             <!-- Colonna 1: Brand -->
             <div class="footer-col">
                 <h4>P&amp;D Club</h4>
-                <p>Prodotti agroalimentari d'eccellenza dall'Irpinia. La qualità della nostra terra, direttamente a casa tua.</p>
+                <p>Prodotti agroalimentari d'eccellenza dall'Irpinia.<br> La qualità della nostra terra, direttamente a casa tua.</p>
             </div>
             <!-- Colonna 2: Link rapidi -->
             <div class="footer-col">
@@ -171,9 +184,9 @@
             <div class="footer-col">
                 <h4>Contatti</h4>
                 <ul>
-                    <li>&#128205; Irpinia, Avellino (AV)</li>
-                    <li>&#9993; info@pdclub.it</li>
-                    <li>&#128222; +39 012 345 6789</li>
+                    <li>&#128205; Campania, Avellino (AV)</li>
+                    <li>&#128233; info@pdclub.it</li>
+                    <li>&#128222; +39 327 434 9933</li>
                 </ul>
             </div>
         </div>
