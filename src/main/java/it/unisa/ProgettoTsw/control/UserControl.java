@@ -1,6 +1,7 @@
 package it.unisa.ProgettoTsw.control;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -17,7 +18,7 @@ import it.unisa.ProgettoTsw.dao.UserDao;
 import it.unisa.ProgettoTsw.dao.UserDaoImplements;
 import it.unisa.ProgettoTsw.model.UserBean;
 
-@WebServlet("/user")
+@WebServlet("/user")  // Lo slash singolo gestisce le pagine ma NON ruba i file CSS/immagini
 public class UserControl extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -77,10 +78,16 @@ public class UserControl extends HttpServlet {
                 }
             }
         } catch (SQLException e) {
-            // 6. Gestione eccezioni identica a quella del prof
+            // 6. Gestione eccezioni: loggo l'errore e torno alla pagina appropriata
             System.err.println("Error:" + e.getMessage());
-            request.setAttribute("errorMessage", "Errore interno del server.");
-            targetPage = "/WEB-INF/view/login.jsp";
+            request.setAttribute("errorMessage", "Email o password non corrette. Se non hai ancora un account, registrati!");
+            
+            // Torno alla pagina giusta in base all'azione che ha causato l'errore
+            if ("register".equalsIgnoreCase(action)) {
+                targetPage = "/WEB-INF/view/registrazione.jsp";
+            } else {
+                targetPage = "/WEB-INF/view/login.jsp";
+            }
         }
         
         return targetPage;
@@ -98,7 +105,7 @@ public class UserControl extends HttpServlet {
             session.setAttribute("token", java.util.UUID.randomUUID().toString()); // <-- token in sessione
             return "/WEB-INF/view/index.jsp";
         } else {
-            request.setAttribute("errorMessage", "Email o Password errate. Riprova.");
+            request.setAttribute("errorMessage", "Email o password non corrette. Se non hai ancora un account, registrati!");
             return "/WEB-INF/view/login.jsp"; // Login errato: torno al form protetto
         }
     }
@@ -120,21 +127,57 @@ public class UserControl extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String ruolo = "cliente"; 
 
-        // 1. Controllo preventivo sul database per evitare duplicati
+        // 1. Validazione server-side dei campi obbligatori
+        if (nome == null || nome.trim().isEmpty() || 
+            cognome == null || cognome.trim().isEmpty() ||
+            email == null || email.trim().isEmpty() || 
+            password == null || password.trim().isEmpty() ||
+            indirizzo == null || indirizzo.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Tutti i campi obbligatori devono essere compilati.");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        // 2. Validazione formato con espressioni regolari (stesse del JavaScript)
+        if (!nome.trim().matches("^[A-Za-zÀ-ÖØ-öø-ÿ' ]{2,50}$")) {
+            request.setAttribute("errorMessage", "Il nome deve contenere solo lettere (minimo 2 caratteri).");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        if (!cognome.trim().matches("^[A-Za-zÀ-ÖØ-öø-ÿ' ]{2,50}$")) {
+            request.setAttribute("errorMessage", "Il cognome deve contenere solo lettere (minimo 2 caratteri).");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        if (!email.trim().matches("^\\S+@\\S+\\.\\S+$")) {
+            request.setAttribute("errorMessage", "Inserisci un indirizzo email valido.");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$")) {
+            request.setAttribute("errorMessage", "La password deve avere almeno 8 caratteri, una maiuscola, una minuscola e un numero.");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        if (indirizzo.trim().length() < 5) {
+            request.setAttribute("errorMessage", "L'indirizzo deve contenere almeno 5 caratteri.");
+            return "/WEB-INF/view/registrazione.jsp";
+        }
+
+        // 3. Controllo preventivo sul database per evitare duplicati
         UserBean existingUser = userDao.doRetrieveByEmail(email);
         if (existingUser != null && existingUser.getIdUtente() != 0) {
             request.setAttribute("errorMessage", "Questa email è già associata a un account.");
             return "/WEB-INF/view/registrazione.jsp"; 
         }
 
-        // 2. Inizializzo il Bean con i dati inviati dalla richiesta HTTP
+        // 4. Inizializzo il Bean con i dati inviati dalla richiesta HTTP
         UserBean newUser = new UserBean();
-        newUser.setNome(nome);
-        newUser.setCognome(cognome);
-        newUser.setEmail(email);
+        newUser.setNome(nome.trim());
+        newUser.setCognome(cognome.trim());
+        newUser.setEmail(email.trim());
         newUser.setPasswordHash(password);
-        newUser.setIndirizzoSpedizione(indirizzo);
-        newUser.setTelefono(telefono);
+        newUser.setIndirizzoSpedizione(indirizzo.trim());
+        newUser.setTelefono(telefono != null ? telefono.trim() : "");
         newUser.setRuolo(ruolo);
 
         // Salvo l'account nel database tramite il DAO

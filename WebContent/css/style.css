@@ -1,158 +1,827 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
 
-/* Impostazioni di base del professore */
+/* ================================================================
+   P&D CLUB — FOGLIO DI STILE PRINCIPALE
+   Palette: Azzurro (logo), Verde (natura), Terracotta, Beige, Bianco
+   Font: Playfair Display (titoli) + Lato (testo)
+   ================================================================ */
+
+/* ---------- VARIABILI CSS (Palette colori) ---------- */
+:root {
+    --blue:        #3498DB;
+    --blue-dark:   #1A6FA0;
+    --green:       #4A7C59;
+    --green-light: #6B9E7A;
+    --green-dark:  #2A3422;
+    --terracotta:  #C65A39;
+    --terracotta-light: #D97A5A;
+    --beige:       #F5ECD7;
+    --beige-warm:  #E8D5B7;
+    --brown:       #8B6F47;
+    --white:       #FFFFFF;
+    --off-white:   #FAFAF7;
+    --text:        #2A3422;
+    --text-light:  #5A6650;
+    --shadow:      rgba(42, 52, 34, 0.12);
+    --shadow-lg:   rgba(42, 52, 34, 0.20);
+
+    /* Font */
+    --font-heading: 'Playfair Display', 'Georgia', serif;
+    --font-body:    'Lato', 'Segoe UI', sans-serif;
+}
+
+
+/* ================================================================
+   1. RESET E STILI BASE
+   ================================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #e9cd96; /* Colore di base beige della palette */
-    color: #2a3422; /* Testo verde scuro */
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--off-white);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0;
 }
 
 h2 {
     text-align: center;
+    font-size: 2.2rem;
+    color: var(--green-dark);
 }
 
-/* Stili dei link nello stile del prof */
-a:link, a:visited, a:active {
-    color: #2a3422;
+p {
+    margin-top: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--green-dark);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #c88e41; /* Arancione/Oro al passaggio del mouse */
-    font-weight: bold;
+    color: var(--terracotta);
 }
 
-/* Stili per form e tabelle */
-table {
-    width: 500px;
-    margin: 20px auto;
-}
 
-table, th, td {
-    text-align: center;
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 5px;
-}
-
-label {
-    font-weight: bold;
-}
-
-/* ---- LAYOUT STRUTTURATO DELLA HOME PAGE ---- */
-
-/* 1. Menu Superiore (Header) */
+/* ================================================================
+   2. HEADER / BARRA DI NAVIGAZIONE
+   ================================================================ */
 header {
-    display: flex; 
-    align-items: center; /* Centra verticalmente gli elementi */
-    justify-content: space-between; /* Spinge il logo tutto a sinistra e i link tutti a destra */
-    padding: 10px 40px; 
-    background-color: #FFFFFF; /* Barra bianca */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    background-color: var(--white);
+    box-shadow: 0 2px 12px var(--shadow);
 }
 
-/* Colore dei link dentro l'header */
-header a:link, header a:visited {
-    color: #2A2A2A; 
-}
-
-header a:hover {
-    color: #C65A39; 
-}
-
-/* 2. Contenitore e dimensione del Logo */
+/* --- Logo + Testo P&D CLUB --- */
 .logo-container {
     display: flex;
     align-items: center;
+    gap: 14px;
 }
 
 .logo-container img {
-    height: 55px; 
-    width: auto;  
+    height: 55px;
+    width: auto;
     display: block;
-    border-radius: 50%; /* Smussa i bordi del logo visto che ha un contorno rotondo */
+    border-radius: 50%;
 }
 
-/* 3. Blocco Navigazione Principale (Voci di testo + Voci con icona) */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1.1;
+}
+
+.logo-pd {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    letter-spacing: 1px;
+}
+
+.logo-club {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 3px;
+}
+
+/* --- Link di navigazione --- */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 35px; /* Crea uno spazio identico tra Home, Shop, Contatti, Carrello e Accedi */
+    gap: 32px;
 }
 
-/* 4. Il trucco per affiancare perfettamente l'icona al testo "Accedi/Profilo/Carrello" */
-.icon-link {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Distanza tra l'immaginetta e la parola */
-}
-
-.icon-link img {
-    height: 24px; /* Rimpicciolisce le icone in modo che siano grandi come il testo */
-    width: auto;
-    display: block;
-}
-
-/* Immagine Banner Centrale (Se presente nel resto della pagina) */
-.hero-image {
-    width: 100%;
-    height: 400px; 
-    object-fit: cover; 
-    display: block;
-    border-top: 3px solid #8b8b6f;
-    border-bottom: 3px solid #8b8b6f;
-}
-
-/* Sezione Descrizione Aziendale (Se presente nel resto della pagina) */
-.about-section {
-    width: 70%;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: #c39c83; 
-    color: #2a3422;
-    text-align: center;
-    border-radius: 12px;
-    box-shadow: 0px 8px 15px rgba(42, 52, 34, 0.2);
-    line-height: 1.6;
-    font-size: 1.1em;
-}
-
-.about-section h2 {
-    color: #2a3422;
-    margin-bottom: 25px;
-}
-
-/* 1. Assicurati che i link della navigazione facciano da "ancora" per la barra */
 .nav-links a {
-    position: relative; /* Fondamentale per posizionare la barra sotto di essi */
+    position: relative;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--green-dark);
     text-decoration: none;
+    letter-spacing: 0.3px;
 }
 
-/* 2. Creazione della barra (invisibile di default) */
+.nav-links a:hover {
+    color: var(--terracotta);
+}
+
+/* Barra animata sotto i link al passaggio del mouse */
 .nav-links a::after {
     content: '';
     position: absolute;
     width: 100%;
-    height: 3px; /* Spessore della barra (puoi aumentarlo o diminuirlo) */
-    bottom: -6px; /* Distanza della barra dal testo */
+    height: 2.5px;
+    bottom: -6px;
     left: 0;
-    background-color: #C65A39; /* Stesso colore del testo al passaggio del mouse */
-    
-    /* Gestione dell'animazione: parte da larghezza 0 */
-    transform: scaleX(0); 
-    transform-origin: bottom right; /* Fa partire l'animazione da un lato */
-    transition: transform 0.3s ease-out; /* Velocità e fluidità dell'animazione */
-    border-radius: 2px; /* Arrotonda leggermente gli angoli della barretta */
+    background-color: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+    border-radius: 2px;
 }
 
-/* 3. Fa apparire la barra quando passi sopra col mouse */
 .nav-links a:hover::after {
-    transform: scaleX(1); /* Allarga la barra al 100% della larghezza del testo */
-    transform-origin: bottom left; /* Fa scivolare la barra verso sinistra quando esci col mouse */
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* --- Icona + Testo (Carrello, Accedi, Profilo) --- */
+.icon-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.icon-link img {
+    height: 22px;
+    width: auto;
+    display: block;
+}
+
+/* --- Hamburger (nascosto su desktop) --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background-color: var(--green-dark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+
+/* ================================================================
+   3. HERO SECTION
+   ================================================================ */
+.hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*
+     * GRADIENTE DI DEFAULT (funziona senza immagine).
+     * Quando avrete una foto, decommentate la riga qui sotto
+     * e il gradiente diventerà un overlay sull'immagine.
+     */
+    /* background: url('../images/hero-bg.jpg') center / cover no-repeat; */
+    background:
+        linear-gradient(135deg,
+            #2A3422 0%,
+            #3B5E3A 25%,
+            #5C8A56 50%,
+            #A8C490 75%,
+            #E8D5B7 100%
+        );
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    /*
+     * Overlay scuro per rendere il testo leggibile sopra un'immagine.
+     * Se usate solo il gradiente senza foto potete abbassare l'opacità.
+     */
+    background: rgba(42, 52, 34, 0.35);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 24px;
+    max-width: 720px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 3.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    letter-spacing: 0.5px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--beige);
+    margin-bottom: 32px;
+    line-height: 1.7;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ================================================================
+   4. BOTTONI
+   ================================================================ */
+.btn-primary {
+    display: inline-block;
+    padding: 14px 36px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--white);
+    background-color: var(--terracotta);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(198, 90, 57, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--terracotta-light);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(198, 90, 57, 0.4);
+}
+
+.btn-lg {
+    padding: 16px 48px;
+    font-size: 1.1rem;
+}
+
+
+/* ================================================================
+   5. SEZIONE "CHI SIAMO"
+   ================================================================ */
+.about-home {
+    padding: 70px 24px;
+    background-color: var(--off-white);
+}
+
+.about-home-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-home-inner h2 {
+    margin-bottom: 8px;
+}
+
+.about-divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--terracotta);
+    border-radius: 2px;
+    margin: 0 auto 30px auto;
+}
+
+.about-home-inner p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+
+/* ================================================================
+   6. SEZIONE "PERCHÉ SCEGLIERCI" (Valori)
+   ================================================================ */
+.values-section {
+    padding: 70px 24px;
+    background-color: var(--beige);
+}
+
+.values-section h2 {
+    margin-bottom: 8px;
+}
+
+.values-section .about-divider {
+    margin-bottom: 50px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px var(--shadow-lg);
+}
+
+.value-icon {
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+}
+
+.value-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+}
+
+.value-card p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* ================================================================
+   7. SEZIONE CALL TO ACTION
+   ================================================================ */
+.cta-section {
+    padding: 70px 24px;
+    text-align: center;
+    background:
+        linear-gradient(135deg,
+            var(--green-dark) 0%,
+            var(--green) 100%
+        );
+    color: var(--white);
+}
+
+.cta-section h2 {
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.cta-section p {
+    font-size: 1.1rem;
+    color: var(--beige);
+    margin-bottom: 30px;
+}
+
+.cta-section .btn-primary {
+    background-color: var(--terracotta);
+}
+
+.cta-section .btn-primary:hover {
+    background-color: var(--white);
+    color: var(--green-dark);
+}
+
+
+/* ================================================================
+   8. FOOTER
+   ================================================================ */
+.site-footer {
+    background-color: var(--green-dark);
+    color: var(--beige);
+    padding: 50px 40px 0 40px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 16px;
+}
+
+.footer-col p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--beige-warm);
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--beige-warm);
+}
+
+.footer-col ul li a {
+    color: var(--beige-warm);
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.85rem;
+    color: rgba(245, 236, 215, 0.5);
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+
+/* ================================================================
+   9. STILI PER FORM (Login, Registrazione)
+   ================================================================ */
+.form-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background-color: var(--off-white);
+}
+
+.form-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 40px 36px;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.form-container h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: var(--green-dark);
+}
+
+.form-container .form-subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 28px;
+}
+
+/* Riga con due campi affiancati (es. Nome + Cognome) */
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: var(--off-white);
+    color: var(--text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.15);
+}
+
+/* Stato di errore per la validazione JavaScript (classe "error" come nelle slide del prof) */
+.form-group input.error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.12);
+}
+
+.form-group .error-message {
+    font-size: 0.82rem;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* Messaggio di errore/successo dal server */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.alert-error {
+    background-color: #fdf0ed;
+    color: #c0392b;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+    background-color: #edf7ed;
+    color: #27864a;
+    border: 1px solid #c3e6cb;
+}
+
+.form-container .btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.form-container .form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.form-container .form-footer a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.form-container .form-footer a:hover {
+    color: var(--blue-dark);
+}
+
+
+/* ================================================================
+   10. STILI PER TABELLE (Admin, Catalogo, ecc.)
+   ================================================================ */
+table {
+    width: 90%;
+    max-width: 900px;
+    margin: 24px auto;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--green-dark);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+}
+
+td {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+tr:hover {
+    background-color: rgba(74, 124, 89, 0.05);
+}
+
+
+/* ================================================================
+   11. ANIMAZIONI (fade-in allo scroll)
+   ================================================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-home-inner,
+.value-card,
+.cta-section h2,
+.cta-section p {
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.value-card:nth-child(1) { animation-delay: 0.1s; }
+.value-card:nth-child(2) { animation-delay: 0.25s; }
+.value-card:nth-child(3) { animation-delay: 0.4s; }
+
+
+/* ================================================================
+   12. RESPONSIVE (Tablet e Mobile)
+   ================================================================ */
+
+/* --- Tablet (max 900px) --- */
+@media (max-width: 900px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.6rem;
+    }
+}
+
+/* --- Mobile (max 768px) --- */
+@media (max-width: 768px) {
+    /* Header: mostra hamburger, nascondi nav-links */
+    header {
+        padding: 10px 20px;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 20px;
+        gap: 18px;
+        box-shadow: 0 8px 20px var(--shadow);
+        border-top: 2px solid var(--beige);
+    }
+
+    .nav-links.nav-open {
+        display: flex;
+    }
+
+    /* Disabilita la barra animata sotto i link in mobile */
+    .nav-links a::after {
+        display: none;
+    }
+
+    /* Hero ridimensionato */
+    .hero {
+        min-height: 400px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Sezioni con meno padding */
+    .about-home,
+    .values-section,
+    .cta-section {
+        padding: 50px 20px;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    /* Form: campi affiancati diventano verticali */
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Footer */
+    .site-footer {
+        padding: 40px 20px 0 20px;
+    }
+
+    .footer-grid {
+        gap: 30px;
+    }
+}
+
+/* --- Mobile piccolo (max 480px) --- */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.7rem;
+    }
+
+    .btn-lg {
+        padding: 14px 32px;
+        font-size: 1rem;
+    }
+
+    .form-container {
+        padding: 28px 20px;
+    }
 }
