@@ -15,6 +15,7 @@
 
     <!-- ==================== HEADER ==================== -->
     <header>
+        <!-- Logo + Scritta P&D CLUB a sinistra -->
         <div class="logo-container">
             <a href="<%= request.getContextPath() %>/user?action=home">
                 <img src="<%= request.getContextPath() %>/images/logo.jpeg" alt="Logo P&D Club">
@@ -24,23 +25,59 @@
                 <span class="logo-club">CLUB</span>
             </a>
         </div>
+            <!-- Home -->
+            <nav class="nav-links">
+            <a href="<%= request.getContextPath() %>/user?action=home" class="icon-link">
+            	<img src="<%=request.getContextPath()%>/images/home-image.png" alt="Home">
+            <span>Home</span>
+            </a>
+            
+            <!-- shop -->
+            <a href="<%= request.getContextPath() %>/product?action=shop" class="icon-link">
+            <img src="<%=request.getContextPath() %>/images/shop-image.png" alt="shop">
+            <span>Shop</span>
+            </a>
+            
+            <!-- contatti -->
+            <a href="#contatti" class="icon-link">
+            <img src="<%=request.getContextPath() %>/images/contatti-image.png" alt="contatti">
+            <span>Contatti</span>
+            </a>
 
-        <nav class="nav-links">
-            <a href="<%= request.getContextPath() %>/user?action=home">Home</a>
-            <a href="<%= request.getContextPath() %>/product?action=shop">Shop</a>
-            <a href="<%= request.getContextPath() %>/user?action=home#contatti">Contatti</a>
+            <!-- Carrello -->
             <a href="<%= request.getContextPath() %>/cart?action=view" class="icon-link">
                 <img src="<%= request.getContextPath() %>/images/shopping_cart.png" alt="Carrello">
                 <span>Carrello</span>
             </a>
-            <a href="<%= request.getContextPath() %>/user?action=viewLogin" class="icon-link">
-                <img src="<%= request.getContextPath() %>/images/account.png" alt="Accedi">
-                <span>Accedi</span>
-            </a>
-        </nav>
+            
 
+            <!-- Accedi / Profilo + Esci (in base allo stato di login) -->
+            <%
+                UserBean utenteLoggato = (UserBean) session.getAttribute("user");
+                if (utenteLoggato != null) {
+            %>
+                <a href="<%= request.getContextPath() %>/user?action=profilo" class="icon-link">
+                    <img src="<%= request.getContextPath() %>/images/account.png" alt="Profilo">
+                    <span>Profilo</span>
+                </a>
+                <a href="<%= request.getContextPath() %>/user?action=logout">Esci</a>
+            <%
+                } else {
+            %>
+                <a href="<%= request.getContextPath() %>/user?action=viewLogin" class="icon-link">
+                    <img src="<%= request.getContextPath() %>/images/account.png" alt="Accedi">
+                    <span>Accedi</span>
+                </a>
+            <%
+                }
+            %>
+            </nav>
+
+        <!-- Hamburger per mobile -->
         <button class="hamburger" id="hamburgerBtn" aria-label="Apri menu">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
     </header>
 
